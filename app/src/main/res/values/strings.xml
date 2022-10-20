@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AwayFromUsApplication</string>
+    <string name="login_label">LOGIN</string>
+    <string name="username_label">USERNAME</string>
+    <string name="password_label">PASSWORD</string>
+    <string name="copyright_label">© COPYRIGHT 2022 ALL RIGHTS RESERVED BY BURAPHA UNIVERSITY ( ONLY ANDROID APP )</string>
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
 </resources>
