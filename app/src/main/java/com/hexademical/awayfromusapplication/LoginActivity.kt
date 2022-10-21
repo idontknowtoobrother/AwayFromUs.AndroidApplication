@@ -14,5 +14,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // now you not want to use R.findViewById anymore
+
     }
 }
