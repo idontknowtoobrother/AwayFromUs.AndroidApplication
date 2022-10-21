@@ -8,7 +8,7 @@
     tools:context=".UserManagementActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/hi_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -34,19 +34,20 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/reset_ip_btn"
         android:layout_width="380dp"
-        android:layout_height="41dp
-"
+        android:layout_height="41dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/login_btn"
         android:text="@string/reset_ip_label"
         android:textColor="#FFF"
-        android:textSize="24dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/hi_user"
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
     <TextView
         android:id="@+id/textView2"
@@ -55,21 +56,23 @@
         android:layout_marginTop="4dp"
         android:text="@string/rate_reset_limit_label"
         android:textColor="#FFF"
-        android:textSize="12dp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/reset_ip_btn" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/license"
         android:layout_width="380dp"
         android:layout_height="41dp"
         android:layout_marginTop="8dp"
-        android:text="@string/license"
-        android:textSize="24dp"
-        android:textColor="#FFFF"
-        android:gravity="center"
         android:background="@drawable/login_box"
+        android:gravity="center"
+        android:text="@string/license"
+        android:textAlignment="center"
+        android:textColor="#FFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,5 +87,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/license" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/resources"
+        android:layout_width="409dp"
+        android:layout_height="503dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 </androidx.constraintlayout.widget.ConstraintLayout>
