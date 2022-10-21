@@ -4,14 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.hexademical.awayfromusapplication.API.UserRequest
-import com.hexademical.awayfromusapplication.API.UserRespone
+import com.hexademical.awayfromusapplication.API.UserResponse
 import com.hexademical.awayfromusapplication.Interface.UserApi
 import com.hexademical.awayfromusapplication.Retrofit.Retro
 import com.hexademical.awayfromusapplication.databinding.ActivityLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
     // @ binding
@@ -51,19 +50,26 @@ class LoginActivity : AppCompatActivity() {
         request.username = _username
         request.password = _password
         val retro = Retro().getRetroClientInstance().create(UserApi::class.java)
-        retro.login(request).enqueue(object : Callback<UserRespone>{
-            override fun onResponse(call: Call<UserRespone>?, response: Response<UserRespone>?) {
+        retro.login(request).enqueue(object : Callback<UserResponse>{
+
+            override fun onResponse(call: Call<UserResponse>?, response: Response<UserResponse>?) {
                 if(response != null){
                     if(response.isSuccessful()){
                         val user = response.body()
-                        Log.d(TAG, "Token: ${user!!.token}")
-                        Log.d(TAG, "Username: ${user!!.username}")
+                        Log.d(TAG, "Token: ${user.getToken()}")
+                        Log.d(TAG, "Username: ${user.getUsername()}")
+                        Log.d(TAG, "Fullname: ${user.getFullname()}")
+                        Log.d(TAG, "Resources: ${user.getResoures()}")
+                    }else if(response.code() == 400) {
+                        Log.e(TAG, "invalid username and password")
+                    }else{
+                        Log.e(TAG, "server error")
                     }
                 }
 
             }
 
-            override fun onFailure(call: Call<UserRespone>?, t: Throwable?) {
+            override fun onFailure(call: Call<UserResponse>?, t: Throwable?) {
                 Log.e(TAG, "error")
             }
 

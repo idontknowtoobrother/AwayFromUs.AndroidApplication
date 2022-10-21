@@ -8,12 +8,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 class Retro {
 
     //@ API URL
-    private val URL = "http://192.168.1.2:3000/"
+    private val BASE_URL = "https://api.awayfromus.dev/"
 
     fun getRetroClientInstance(): Retrofit {
         val gson = GsonBuilder().setLenient().create()
         return Retrofit.Builder()
-            .baseUrl(URL)
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
