@@ -19,15 +19,21 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         // now you not want to use R.findViewById anymore
 
-        // login handler
-        binding.loginBtn.setOnClickListener {
+        initHandler() // start initialize handler
+    }
 
+
+    // @ Initialize Handler
+    fun initHandler() {
+
+        // login handler
+        binding?.loginBtn?.setOnClickListener {
             // get username and password
             val username = binding.lUsername.text.toString()
             val password = binding.lPassword.text.toString()
             Log.d(TAG, "username: ${username} password: ${password}")
-
         }
+
     }
 
 
