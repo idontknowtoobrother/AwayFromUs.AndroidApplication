@@ -1,6 +1,7 @@
 package com.hexademical.awayfromusapplication
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -60,24 +61,31 @@ class LoginActivity : AppCompatActivity() {
         request.username = _username
         request.password = _password
         val retro = Retro().getRetroClientInstance().create(UserApi::class.java)
+
+        val loginThis = this
         retro.login(request).enqueue(object : Callback<UserResponse>{
 
             override fun onResponse(call: Call<UserResponse>?, response: Response<UserResponse>?) {
                 if(response != null){
                     if(response.isSuccessful()){
                         user = response.body()
+                        x_access_token = user.getToken().toString()
 
                         // @ Save token process
                         val sharedPreferences: SharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
                         val editor : SharedPreferences.Editor = sharedPreferences.edit()
                         editor.apply {
-                            putString("x-access-token", user.getToken())
+                            putString("x-access-token", x_access_token)
                         }.apply()
 
                         Log.d(TAG, "Token: ${user.getToken()}")
                         Log.d(TAG, "Username: ${user.getUsername()}")
                         Log.d(TAG, "Fullname: ${user.getFullname()}")
                         Log.d(TAG, "Resources: ${user.getResoures()}")
+
+                        val intent = Intent(loginThis, UserManagementActivity::class.java).also {
+                            startActivity(it)
+                        }
 
                     }else if(response.code() == 400) {
                         Toast.makeText(applicationContext, "Invalid Username and Password", Toast.LENGTH_SHORT).show()
@@ -97,13 +105,11 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-
     private fun _loadSavedToken() {
         // @ Get token process
         val sharedPreferences: SharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         x_access_token = sharedPreferences.getString("x-access-token", "").toString()
     }
-
 
     private fun _getUserData() {
         if(x_access_token == ""){
@@ -113,6 +119,7 @@ class LoginActivity : AppCompatActivity() {
         val retro = Retro().getRetroClientInstance().create(UserApi::class.java)
         // @ test token
 
+        val loginThis = this
         retro.getUserData(x_access_token).enqueue(object : Callback<UserResponse>{
             override fun onResponse(call: Call<UserResponse>?, response: Response<UserResponse>?) {
                if(response != null){
@@ -120,6 +127,9 @@ class LoginActivity : AppCompatActivity() {
                        if(response.code() == 200) {
                            user = response.body()
                            Log.d(TAG, "Username: ${user.getUsername()} Already Login :D")
+                           val intent = Intent(loginThis, UserManagementActivity::class.java).also {
+                               startActivity(it)
+                           }
                        }
                    }
                }
@@ -129,6 +139,7 @@ class LoginActivity : AppCompatActivity() {
                 Log.e(TAG, "error: ${t?.message}")
             }
         })
+
     }
 
 

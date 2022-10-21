@@ -99,7 +99,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/logout_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -108,5 +108,6 @@
         app:layout_constraintHorizontal_bias="0.966"
         app:layout_constraintStart_toEndOf="@+id/hi_user"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logout" />
+        app:srcCompat="@drawable/logout"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

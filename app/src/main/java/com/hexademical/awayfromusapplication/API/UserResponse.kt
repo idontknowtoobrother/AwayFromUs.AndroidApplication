@@ -51,6 +51,10 @@ class UserResponse {
     @Expose
     private val lastname: String? = null
 
+    @SerializedName("license")
+    @Expose
+    private val license: String? = null
+
     @SerializedName("resources")
     @Expose
     private val resources: List<Resource>? = null
@@ -69,6 +73,10 @@ class UserResponse {
 
     fun getUsername(): String? {
         return username
+    }
+
+    fun getLicense(): String? {
+        return license
     }
 
     fun getResoures(): List<Resource>? {
