@@ -11,6 +11,7 @@ import com.hexademical.awayfromusapplication.databinding.ActivityLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.math.log
 
 class LoginActivity : AppCompatActivity() {
     // @ binding
@@ -52,10 +53,13 @@ class LoginActivity : AppCompatActivity() {
         val retro = Retro().getRetroClientInstance().create(UserApi::class.java)
         retro.login(request).enqueue(object : Callback<UserRespone>{
             override fun onResponse(call: Call<UserRespone>?, response: Response<UserRespone>?) {
-                val user = response?.body()
-                Log.d(TAG, "Token: ${user!!.data?.token}")
-                Log.d(TAG, "Username: ${user!!.data?.username}")
-                Log.d(TAG, "Firstname: ${user!!.data?.firstname}")
+                if(response != null){
+                    if(response.isSuccessful()){
+                        val user = response.body()
+                        Log.d(TAG, "Token: ${user!!.token}")
+                        Log.d(TAG, "Username: ${user!!.username}")
+                    }
+                }
 
             }
 
