@@ -3,6 +3,7 @@ package com.hexademical.awayfromusapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.hexademical.awayfromusapplication.API.UserRequest
 import com.hexademical.awayfromusapplication.API.UserResponse
 import com.hexademical.awayfromusapplication.Interface.UserApi
@@ -61,8 +62,10 @@ class LoginActivity : AppCompatActivity() {
                         Log.d(TAG, "Fullname: ${user.getFullname()}")
                         Log.d(TAG, "Resources: ${user.getResoures()}")
                     }else if(response.code() == 400) {
+                        Toast.makeText(applicationContext, "Invalid Username and Password", Toast.LENGTH_SHORT).show()
                         Log.e(TAG, "invalid username and password")
                     }else{
+                        Toast.makeText(applicationContext, "Server Error", Toast.LENGTH_SHORT).show()
                         Log.e(TAG, "server error")
                     }
                 }
@@ -70,7 +73,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<UserResponse>?, t: Throwable?) {
-                Log.e(TAG, "error")
+                Log.e(TAG, "error: ${t?.message}")
             }
 
         })

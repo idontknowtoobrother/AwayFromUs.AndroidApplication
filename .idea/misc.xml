@@ -11,6 +11,8 @@
         <entry key="..\:/AwayFromUsApplication/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/AwayFromUsApplication/app/src/main/res/layout/activity_main.xml" value="0.284375" />
         <entry key="..\:/AwayFromUsApplication/app/src/main/res/layout/activity_user_management.xml" value="0.33" />
+        <entry key="..\:/AwayFromUsApplication/app/src/main/res/layout/fragment_login.xml" value="0.25885416666666666" />
+        <entry key="..\:/AwayFromUsApplication/app/src/main/res/layout/fragment_user_management.xml" value="0.25885416666666666" />
         <entry key="..\:/AwayFromUsApplication/app/src/main/res/layout/list_resource.xml" value="0.26927083333333335" />
       </map>
     </option>
