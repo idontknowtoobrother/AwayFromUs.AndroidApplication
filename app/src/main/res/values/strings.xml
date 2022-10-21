@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">AwayFromUsApplication</string>
     <string name="login_label">LOGIN</string>
+    <string name="hi_label">Hi, %s</string>
+    <string name="reset_ip_label">RESET IP ADDRESS</string>
+    <string name="rate_reset_limit_label">Chilling we have limit 5 Minutes per action</string>
+    <string name="your_license_label">Your License</string>
+    <string name="license">%s</string>
     <string name="username_label">USERNAME</string>
     <string name="password_label">PASSWORD</string>
     <string name="copyright_label">© COPYRIGHT 2022 ALL RIGHTS RESERVED BY BURAPHA UNIVERSITY ( ONLY ANDROID APP )</string>
