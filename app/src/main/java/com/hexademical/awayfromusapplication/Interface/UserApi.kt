@@ -14,7 +14,7 @@ interface UserApi {
         @Body userRequest: UserRequest
     ):Call<UserResponse>
 
-    @GET("get-user-data")
+    @GET("users")
     fun getUserData(
         @Header("x-access-token") authToken:String
     ):Call<UserResponse>

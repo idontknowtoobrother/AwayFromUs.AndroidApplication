@@ -11,6 +11,10 @@ import com.hexademical.awayfromusapplication.API.UserResponse
 import com.hexademical.awayfromusapplication.Interface.UserApi
 import com.hexademical.awayfromusapplication.Retrofit.Retro
 import com.hexademical.awayfromusapplication.databinding.ActivityUserManagementBinding
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +33,9 @@ class UserManagementActivity : AppCompatActivity() {
     // @ debug tag
     private var TAG = "UserManagementActivity"
 
+    // @ Coroutine for refreshing user data
+    private val userThread = CoroutineScope(CoroutineName("userDataThread"))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // binding inflate
@@ -38,7 +45,7 @@ class UserManagementActivity : AppCompatActivity() {
 
         initHandler()
         _loadSavedToken()
-        _loadUserData()
+        _tickRefreshUserData()
     }
 
     private fun _loadUserData() {
@@ -75,6 +82,18 @@ class UserManagementActivity : AppCompatActivity() {
             sharedPreferences.edit().clear().commit()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun _tickRefreshUserData() {
+        userThread.launch {
+            do {
+                if (x_access_token != null && x_access_token != ""){
+                    _loadUserData()
+                }
+                Log.d(TAG, "refreshed user data")
+                delay(6000)
+            } while (true)
         }
     }
 }
