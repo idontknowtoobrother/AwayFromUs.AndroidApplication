@@ -10,8 +10,10 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.hexademical.awayfromusapplication.API.ResetRespone
 import com.hexademical.awayfromusapplication.API.UserResponse
 import com.hexademical.awayfromusapplication.Interface.UserApi
 import com.hexademical.awayfromusapplication.ResourceRecyclerView.ResourceAdapter
@@ -99,7 +101,7 @@ class UserManagementActivity : AppCompatActivity() {
                     _loadUserData()
                 }
                 Log.d(TAG, "refreshed user data")
-                delay(6000)
+                delay(10000)
             } while (true)
         }
     }
@@ -115,7 +117,30 @@ class UserManagementActivity : AppCompatActivity() {
 
         binding.resetIpBtn.setOnClickListener {
             animationButton(binding.resetIpBtn)
+            val retro = Retro().getRetroClientInstance().create(UserApi::class.java)
+            retro.resetIP(x_access_token).enqueue(object : Callback<ResetRespone>{
+                override fun onResponse(call: Call<ResetRespone>?, response: Response<ResetRespone>?) {
+                    if(response != null){
+                        Log.d(TAG, "reset-btn/response code: ${response.code()}")
+                        if(response.isSuccessful()){
+                            if(response.code() == 200) {
+                                val res = response.body()
+                                Log.d(TAG, "msg: ${res.msg}")
+                                Toast.makeText(applicationContext, res.msg, Toast.LENGTH_SHORT).show()
+                                _loadUserData()
+                            }
+                        }else if(response?.code() == 429) {
+                            val animation: Animation = AlphaAnimation(1.0f, 0.0f)
+                            animation.duration = 300
+                            binding.limitRateLabel.startAnimation(animation)
+                        }
+                    }
+                }
 
+                override fun onFailure(call: Call<ResetRespone>?, t: Throwable?) {
+                    Log.e(TAG, "error: ${t?.message}")
+                }
+            })
         }
     }
 

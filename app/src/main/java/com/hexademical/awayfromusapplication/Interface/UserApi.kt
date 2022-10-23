@@ -1,5 +1,6 @@
 package com.hexademical.awayfromusapplication.Interface
 
+import com.hexademical.awayfromusapplication.API.ResetRespone
 import com.hexademical.awayfromusapplication.API.UserRequest
 import com.hexademical.awayfromusapplication.API.UserResponse
 import retrofit2.Call
@@ -18,4 +19,9 @@ interface UserApi {
     fun getUserData(
         @Header("x-access-token") authToken:String
     ):Call<UserResponse>
+
+    @POST("/ip/reset")
+    fun resetIP(
+        @Header("x-access-token") authToken:String
+    ):Call<ResetRespone>
 }
