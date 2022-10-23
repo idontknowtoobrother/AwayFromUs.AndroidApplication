@@ -57,7 +57,7 @@ class UserResponse {
 
     @SerializedName("resources")
     @Expose
-    private val resources: List<Resource>? = null
+    private val resources: ArrayList<Resource>? = null
 
     @SerializedName("token")
     @Expose
@@ -79,7 +79,7 @@ class UserResponse {
         return license
     }
 
-    fun getResoures(): List<Resource>? {
+    fun getResoures(): ArrayList<Resource>? {
         return resources
     }
 

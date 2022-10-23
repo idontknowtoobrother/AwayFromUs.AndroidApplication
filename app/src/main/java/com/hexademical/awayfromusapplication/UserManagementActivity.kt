@@ -6,9 +6,11 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hexademical.awayfromusapplication.API.UserResponse
 import com.hexademical.awayfromusapplication.Interface.UserApi
+import com.hexademical.awayfromusapplication.ResourceRecyclerView.ResourceAdapter
 import com.hexademical.awayfromusapplication.Retrofit.Retro
 import com.hexademical.awayfromusapplication.databinding.ActivityUserManagementBinding
 import kotlinx.coroutines.CoroutineName
@@ -30,6 +32,9 @@ class UserManagementActivity : AppCompatActivity() {
     // @ Token
     private lateinit var x_access_token: String
 
+    // @ Recycler View
+    private lateinit var resourceRecyclerView: RecyclerView
+
     // @ debug tag
     private var TAG = "UserManagementActivity"
 
@@ -41,6 +46,12 @@ class UserManagementActivity : AppCompatActivity() {
         // binding inflate
         binding = ActivityUserManagementBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // @ RecyclerView Init
+        resourceRecyclerView = binding.resources
+        resourceRecyclerView.layoutManager = LinearLayoutManager(this)
+        resourceRecyclerView.setHasFixedSize(true)
+
         // now you not want to use R.findViewById anymore
 
         initHandler()
@@ -58,6 +69,8 @@ class UserManagementActivity : AppCompatActivity() {
                             user = response.body()
                             binding.hiUser.text = getString(R.string.hi_label, user.getFullname())
                             binding.license.text = getString(R.string.license, user.getLicense())
+                            resourceRecyclerView.adapter = user.getResoures()
+                                ?.let { ResourceAdapter(it) }
                         }
                     }
                 }
