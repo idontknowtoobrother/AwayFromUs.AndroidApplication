@@ -6,6 +6,10 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hexademical.awayfromusapplication.API.UserResponse
@@ -88,16 +92,6 @@ class UserManagementActivity : AppCompatActivity() {
         x_access_token = sharedPreferences.getString("x-access-token", "").toString()
     }
 
-    private fun initHandler() {
-
-        binding.logoutBtn.setOnClickListener {
-            val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-            sharedPreferences.edit().clear().commit()
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
     private fun _tickRefreshUserData() {
         userThread.launch {
             do {
@@ -109,4 +103,33 @@ class UserManagementActivity : AppCompatActivity() {
             } while (true)
         }
     }
+
+    private fun initHandler() {
+        binding.logoutBtn.setOnClickListener {
+            animationImageButton(binding.logoutBtn)
+            val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+            sharedPreferences.edit().clear().commit()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.resetIpBtn.setOnClickListener {
+            animationButton(binding.resetIpBtn)
+
+        }
+    }
+
+    private fun animationButton(button: Button) {
+        val anim: Animation = AlphaAnimation(1.0f, 0.5f)
+        anim.duration = 100
+        button.startAnimation(anim)
+    }
+
+    private fun animationImageButton(button: ImageButton) {
+        val anim: Animation = AlphaAnimation(1.0f, 0.5f)
+        anim.duration = 100
+        button.startAnimation(anim)
+    }
+
+
 }

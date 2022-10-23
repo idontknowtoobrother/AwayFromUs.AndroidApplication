@@ -6,6 +6,9 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.widget.Button
 import android.widget.Toast
 import com.hexademical.awayfromusapplication.API.UserRequest
 import com.hexademical.awayfromusapplication.API.UserResponse
@@ -45,7 +48,8 @@ class LoginActivity : AppCompatActivity() {
     private fun initHandler() {
 
         // login handler
-        binding?.loginBtn?.setOnClickListener {
+        binding.loginBtn.setOnClickListener {
+            animationButton(binding.loginBtn)
             // get username and password
             val username = binding.lUsername.text.toString().trim()
             val password = binding.lPassword.text.toString().trim()
@@ -140,6 +144,12 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
+    }
+
+    private fun animationButton(button: Button) {
+        val anim: Animation = AlphaAnimation(1.0f, 0.5f)
+        anim.duration = 100
+        button.startAnimation(anim)
     }
 
 
